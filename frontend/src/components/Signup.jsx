@@ -1,0 +1,125 @@
+import React, { useState } from "react";
+import api from "../api/axios";
+import { useNavigate, Link } from "react-router-dom";
+import defaultAvatar from "../assets/default_user.png"; // 👈 add image
+
+function Signup() {
+  const navigate = useNavigate();
+  const [preview, setPreview] = useState(null);
+  const [error, setError] = useState("");
+
+  const [form, setForm] = useState({
+    full_name: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+    dob: "",
+    profile_pic: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+
+    if (files) {
+      setForm({ ...form, profile_pic: files[0] });
+      setPreview(URL.createObjectURL(files[0]));
+    } else {
+      setForm({ ...form, [name]: value });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // 🔴 Password match validation
+    if (form.password !== form.confirm_password) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    setError("");
+
+    const data = new FormData();
+    Object.keys(form).forEach((key) => {
+      if (form[key] && key !== "confirm_password") {
+        data.append(key, form[key]);
+      }
+    });
+
+    try {
+      await api.post("signup/", data);
+      alert("Signup successful");
+      navigate("/login");
+    } catch {
+      alert("Signup failed");
+    }
+  };
+
+  return (
+    <div className="auth-page">
+      <div className="auth-box">
+        <h2 className="auth-title">Join Social Network</h2>
+
+        {/* PROFILE IMAGE */}
+        <div className="profile-upload">
+          <div className="profile-circle">
+            <img src={preview || defaultAvatar} alt="profile" />
+          </div>
+
+          <label className="upload-text">
+            Upload Profile Picture
+            <input
+              type="file"
+              name="profile_pic"
+              hidden
+              accept="image/*"
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <label>Full Name</label>
+          <input name="full_name" onChange={handleChange} />
+
+          <label>Date of Birth</label>
+          <input name="dob" type="date" onChange={handleChange} />
+
+          <label>Email Address</label>
+          <input name="email" onChange={handleChange} />
+
+          {/* PASSWORD ROW */}
+          <div className="password-row">
+            <div>
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <label>Re-Password</label>
+              <input
+                type="password"
+                name="confirm_password"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          {error && <p className="error-text">{error}</p>}
+
+          <button type="submit">Signup</button>
+        </form>
+
+        <p className="auth-footer">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default Signup;
