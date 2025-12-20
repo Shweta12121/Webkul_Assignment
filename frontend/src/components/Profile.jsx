@@ -23,7 +23,6 @@ function Profile() {
     navigate("/login");
   };
 
-  /* ---------- PROFILE PIC UPDATE ---------- */
   const handleProfilePicChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -35,7 +34,6 @@ function Profile() {
     setProfile(res.data);
   };
 
-  /* ---------- DOB UPDATE ---------- */
   const saveDob = async () => {
     const res = await api.patch("profile/", { dob });
     setProfile(res.data);
@@ -48,7 +46,6 @@ function Profile() {
     <div className="dashboard">
       <div className="dashboard-grid">
 
-        {/* LEFT PROFILE CARD */}
         <div className="profile-card">
           <div className="profile-pic-wrapper">
             <img
@@ -80,7 +77,6 @@ function Profile() {
           <h3 className="profile-name">{profile.full_name}</h3>
           <p className="profile-email">{profile.email}</p>
 
-          {/* DOB SECTION */}
           <p className="profile-dob">
             DOB:&nbsp;
             {editingDob ? (
@@ -111,7 +107,6 @@ function Profile() {
           </button>
         </div>
 
-        {/* RIGHT COLUMN */}
         <div className="right-column">
           <Post profilePic={profile.profile_pic} />
         </div>

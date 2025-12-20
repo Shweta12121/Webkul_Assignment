@@ -40,7 +40,6 @@ function Post({ profilePic }) {
 
   return (
     <>
-      {/* ADD POST CARD */}
       <div className="add-post-card">
         <div className="add-post-header">
           <h3>Add Post</h3>
@@ -88,7 +87,7 @@ function Post({ profilePic }) {
           <button onClick={addPost}>Post</button>
 
           <label className="upload-btn">
-            📷 Add Image
+            Add Image
             <input
               type="file"
               accept="image/*"

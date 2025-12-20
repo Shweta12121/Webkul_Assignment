@@ -14,7 +14,7 @@ function Login() {
       const res = await api.post("login/", { email, password });
       localStorage.setItem("access", res.data.access);
       setAuthToken(res.data.access);
-      navigate("/profile");   // ✅ routing-based redirect
+      navigate("/profile");
     } catch {
       alert("Invalid login");
     }

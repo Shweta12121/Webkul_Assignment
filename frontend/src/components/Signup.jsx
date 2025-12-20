@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import api from "../api/axios";
 import { useNavigate, Link } from "react-router-dom";
-import defaultAvatar from "../assets/default_user.png"; // 👈 add image
+import defaultAvatar from "../assets/default_user.png";
 
 function Signup() {
   const navigate = useNavigate();
@@ -31,7 +31,6 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 🔴 Password match validation
     if (form.password !== form.confirm_password) {
       setError("Passwords do not match");
       return;
@@ -60,7 +59,6 @@ function Signup() {
       <div className="auth-box">
         <h2 className="auth-title">Join Social Network</h2>
 
-        {/* PROFILE IMAGE */}
         <div className="profile-upload">
           <div className="profile-circle">
             <img src={preview || defaultAvatar} alt="profile" />
@@ -88,7 +86,6 @@ function Signup() {
           <label>Email Address</label>
           <input name="email" onChange={handleChange} />
 
-          {/* PASSWORD ROW */}
           <div className="password-row">
             <div>
               <label>Password</label>

@@ -294,7 +294,7 @@ body {
 
 
 
-/* SIGNUP PROFILE UPLOAD */
+
 .profile-upload {
   text-align: center;
   margin-bottom: 20px;
@@ -328,7 +328,6 @@ body {
   cursor: pointer;
 }
 
-/* PASSWORD ROW */
 .password-row {
   display: flex;
   gap: 25px;
@@ -343,7 +342,6 @@ body {
   box-sizing: border-box;
 }
 
-/* ERROR TEXT */
 .error-text {
   color: red;
   font-size: 13px;
